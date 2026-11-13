@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Invoices · InvoiceTracker{% endblock %}
+{% block content %}
+<h1>Invoices</h1>
+<form method="get" action="{{ url_for('search.search_invoices') }}" class="search">
+  <input name="search" placeholder="Search by client, number, or description" value="{{ search or '' }}">
+  <button type="submit">Search</button>
+  <a class="button" href="{{ url_for('invoices.new_invoice') }}">New invoice</a>
+</form>
+<table>
+  <thead>
+    <tr><th>Number</th><th>Client</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for invoice in invoices %}
+    <tr>
+      <td><a href="{{ url_for('invoices.view_invoice', invoice_id=invoice['id']) }}">{{ invoice['number'] }}</a></td>
+      <td>{{ invoice['client_name'] }}</td>
+      <td>{{ invoice['description'] }}</td>
+      <td>{{ format_money(invoice['amount']) }}</td>
+      <td><span class="status {{ invoice['status'] }}">{{ invoice['status'] }}</span></td>
+      <td><a href="{{ url_for('export.export_invoice', id=invoice['id']) }}">Export</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No invoices found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,16 @@
+body { font-family: system-ui, sans-serif; margin: 0; color: #1f2933; background: #f7f8fa; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #243b53; }
+header a { color: #fff; text-decoration: none; margin-left: 16px; }
+.brand { font-weight: 700; margin-left: 0; }
+main { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { padding: 8px 12px; border-bottom: 1px solid #e4e7eb; text-align: left; }
+form label { display: block; margin: 8px 0; }
+.search { display: flex; gap: 8px; margin-bottom: 16px; }
+.search input { flex: 1; }
+.button, button { padding: 6px 12px; border: 1px solid #243b53; background: #fff; color: #243b53; border-radius: 4px; cursor: pointer; text-decoration: none; }
+.status { padding: 2px 8px; border-radius: 10px; font-size: 0.85em; background: #e4e7eb; }
+.status.paid { background: #c6f7e2; }
+.status.overdue { background: #ffe3e3; }
+.flash { background: #fff3c4; padding: 8px 12px; }
+.client-card { background: #fff; border: 1px solid #e4e7eb; padding: 8px 12px; margin-top: 12px; }

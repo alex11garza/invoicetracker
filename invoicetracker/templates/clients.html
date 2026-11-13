@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Clients · InvoiceTracker{% endblock %}
+{% block content %}
+<h1>Clients</h1>
+<table>
+  <thead><tr><th>Name</th><th>Email</th></tr></thead>
+  <tbody>
+    {% for client in clients %}
+    <tr><td>{{ client['name'] }}</td><td>{{ client['email'] }}</td></tr>
+    {% else %}
+    <tr><td colspan="2">No clients yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Add a client</h2>
+<form method="post" action="{{ url_for('clients.new_client') }}">
+  <label>Name <input id="client-name" name="name" required></label>
+  <label>Email <input name="email" type="email"></label>
+  <button type="submit">Add client</button>
+</form>
+<div id="preview"></div>
+<script>
+  const nameInput = document.getElementById("client-name");
+  nameInput.addEventListener("change", async () => {
+    const url = "{{ url_for('clients.preview_client') }}?client_name=" + encodeURIComponent(nameInput.value);
+    const response = await fetch(url);
+    document.getElementById("preview").innerHTML = await response.text();
+  });
+</script>
+{% endblock %}

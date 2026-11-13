@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ invoice['number'] }} · InvoiceTracker{% endblock %}
+{% block content %}
+<h1>Invoice {{ invoice['number'] }}</h1>
+<dl>
+  <dt>Client</dt><dd>{{ invoice['client_name'] }} ({{ invoice['client_email'] }})</dd>
+  <dt>Description</dt><dd>{{ invoice['description'] }}</dd>
+  <dt>Amount</dt><dd>{{ format_money(invoice['amount']) }}</dd>
+  <dt>Status</dt><dd><span class="status {{ invoice['status'] }}">{{ invoice['status'] }}</span></dd>
+</dl>
+<form method="post" action="{{ url_for('invoices.update_status', invoice_id=invoice['id']) }}">
+  <select name="status">
+    {% for s in ['draft', 'sent', 'paid', 'overdue'] %}
+    <option value="{{ s }}" {% if s == invoice['status'] %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Update status</button>
+  <a class="button" href="{{ url_for('export.export_invoice', id=invoice['id']) }}">Export</a>
+</form>
+{% endblock %}
